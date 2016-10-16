@@ -1,0 +1,4 @@
+/var/tmp
+    Temporary files that are large or that need to exist for a longer time
+    than what is allowed for /tmp. (Although the system administrator might
+    not allow very old files in /var/tmp either.)

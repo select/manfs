@@ -1,0 +1,2 @@
+/proc/irq
+    Masks for irq to cpu affinity.

@@ -1,0 +1,5 @@
+/var/run
+    Contains the process identification files (PIDs) of system services and
+    other information about the system that is valid until the system is next
+    booted. For example, /var/run/utmp contains information about users
+    currently logged in.

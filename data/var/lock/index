@@ -1,0 +1,18 @@
+/var/lock
+	Many programs follow a convention to create a lock file in /var/lock to
+	indicate that they are using a particular device or file. This directory
+	holds those lock files (for some devices) and hopefully other programs
+	will notice the lock file and won't attempt to use the device or file.
+
+	Lock files should be stored within the /var/lock directory structure.
+	Lock files for devices and other resources shared by multiple
+	applications, such as the serial device lock files that were originally
+	found in either /usr/spool/locks or /usr/spool/uucp, must now be stored
+	in /var/lock. The naming convention which must be used is LCK.. followed
+	by the base name of the device file. For example, to lock /dev/ttyS0 the
+	file LCK..ttyS0 would be created. The format used for the contents of
+	such lock files must be the HDB UUCP lock file format. The HDB format is
+	to store the process identifier (PID) as a ten byte ASCII decimal number,
+	with a trailing newline. For example, if process 1230 holds a lock file,
+	it would contain the eleven characters: space, space, space, space,
+	space, space, one, two, three, zero, and newline.

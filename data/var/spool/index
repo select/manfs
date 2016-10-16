@@ -1,0 +1,6 @@
+/var/spool
+    Holds spool files, for instance for mail, news, and printing (lpd) and
+    other queued work. Spool files store data to be processed after the job
+    currently occupying a device is finished or the appropriate cron job is
+    started. Each different spool has its own subdirectory below /var/spool,
+    e.g., the cron tables are stored in /var/spool/cron/crontabs.

@@ -1,0 +1,5 @@
+/var/backups
+    Directory containing backups of various key system files such as /etc/
+    shadow, /etc/group, /etc/inetd.conf and dpkg.status. They are normally
+    renamed to something like dpkg.status.0, group.bak, gshadow.bak,
+    inetd.conf.bak, passwd.bak, shadow.bak

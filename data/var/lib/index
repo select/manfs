@@ -1,0 +1,16 @@
+/var/lib
+	Holds dynamic data libraries/files like the rpm/dpkg database and game
+	scores. Furthermore, this hierarchy holds state information pertaining to
+	an application or the system. State information is data that programs
+	modify while they run, and that pertains to one specific host. Users
+	shouldn't ever need to modify files in /var/lib to configure a package's
+	operation. State information is generally used to preserve the condition
+	of an application (or a group of inter-related applications) between
+	invocations and between different instances of the same application. An
+	application (or a group of inter-related applications) use a subdirectory
+	of /var/lib for their data. There is one subdirectory, /var/lib/misc,
+	which is intended for state files that don't need a subdirectory; the
+	other subdirectories should only be present if the application in
+	question is included in the distribution. /var/lib/'name' is the location
+	that must be used for all distribution packaging support. Different
+	distributions may use different names, of course.

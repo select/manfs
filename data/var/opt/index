@@ -1,0 +1,6 @@
+/var/opt
+    Variable data of the program packages in /opt must be installed in /var/
+    opt/'package-name', where 'package-name' is the name of the subtree in /
+    opt where the static data from an add-on software package is stored,
+    except where superceded by another file in /etc. No structure is imposed
+    on the internal arrangement of /var/opt/'package-name'.

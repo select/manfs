@@ -1,0 +1,10 @@
+/var/mail
+    Contains user mailbox files. The mail files take the form /var/mail/
+    'username' (Note that /var/mail may be a symbolic link to another
+    directory). User mailbox files in this location are stored in the
+    standard UNIX mailbox format. The reason for the location of this
+    directory was to bring the FHS inline with nearly every UNIX
+    implementation (it was previously located in /var/spool/mail). This
+    change is important for inter-operability since a single /var/mail is
+    often shared between multiple hosts and multiple UNIX implementations
+    (despite NFS locking issues).

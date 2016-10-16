@@ -1,0 +1,121 @@
+/proc/net
+    Status information about network protocols.
+
+IPv6 information
+
+
+    /proc/net/udp6
+          UDP sockets (IPv6).
+
+    /proc/net/tcp6
+        TCP sockets (IPv6).
+
+    /proc/net/raw6
+          Raw device statistics (IPv6).
+
+    /proc/net/igmp6
+        IP multicast addresses, which this host joined (IPv6).
+
+    /proc/net/if_inet6
+        List of IPv6 interface addresses.
+
+    /proc/net/ipv6_route
+        Kernel routing table for IPv6.
+
+    /proc/net/rt6_stats
+        Global IPv6 routing tables statistics.
+
+    /proc/net/sockstat6
+        Socket statistics (IPv6).
+
+    /proc/net/snmp6
+        Snmp data (IPv6).
+
+
+
+General Network information
+
+
+    /proc/net/arp
+          Kernel ARP table.
+
+    /proc/net/dev
+        network devices with statistics.
+
+    /proc/net/dev_mcast
+        the Layer2 multicast groups which a device is listening to (interface
+        index, label, number of references, number of bound addresses).
+
+    /proc/net/dev_stat
+        network device status.
+
+    /proc/net/ip_fwchains
+          Firewall chain linkage.
+
+    /proc/net/ip_fwnames
+        Firewall chain names.
+
+    /proc/net/ip_masq
+          Directory containing the masquerading tables.
+
+    /proc/net/ip_masquerade
+        Major masquerading table.
+
+    /proc/net/netstat
+        Network statistics.
+
+    /proc/net/raw
+          raw device statistics.
+
+    /proc/net/route
+        Kernel routing table.
+
+    /proc/net/rpc
+          Directory containing rpc info.
+
+    /proc/net/rt_cache
+        Routing cache.
+
+    /proc/net/snmp
+        SNMP data.
+
+    /proc/net/sockstat
+        Socket statistics.
+
+    /proc/net/tcp
+          TCP sockets.
+
+    /proc/net/tr_rif
+          Token ring RIF routing table.
+
+    /proc/net/udp
+        UDP sockets.
+
+    /proc/net/unix
+        UNIX domain sockets.
+
+    /proc/net/wireless
+          Wireless interface data (Wavelan etc).
+
+    /proc/net/igmp
+        IP multicast addresses, which this host joined.
+
+    /proc/net/psched
+        Global packet scheduler parameters.
+
+    /proc/net/netlink
+        List of PF_NETLINK sockets.
+
+    /proc/net/ip_mr_vifs
+        List of multicast virtual interfaces.
+
+    /proc/net/ip_mr_cache
+        List of multicast routing cache.
+
+        You can use this information to see which network devices are
+        available in your system and how much traffic was routed over those
+        devices. In addition, each Channel Bond interface has its own
+        directory. For example, the bond0 device will have a directory called
+        /proc/net/bond0/. It will contain information that is specific to
+        that bond, such as the current slaves of the bond, the link status of
+        the slaves, and how many times the slaves link has failed.

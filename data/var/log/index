@@ -1,0 +1,70 @@
+/var/log
+	Log files from the system and various programs/services, especially login
+	(/var/log/wtmp, which logs all logins and logouts into the system) and
+	syslog (/var/log/messages, where all kernel and system program message
+	are usually stored). Files in /var/log can often grow indefinitely, and
+	may require cleaning at regular intervals. Something that is now normally
+	managed via log rotation utilities such as 'logrotate'. This utility also
+	allows for the automatic rotation compression, removal and mailing of log
+	files. Logrotate can be set to handle a log file daily, weekly, monthly
+	or when the log file gets to a certain size. Normally, logrotate runs as
+	a daily cron job. This is a good place to start troubleshooting general
+	technical problems.
+
+/var/log/auth.log
+	Record of all logins and logouts by normal users and system processes.
+
+/var/log/btmp
+	Log of all attempted bad logins to the system. Accessed via the lastb
+	command.
+
+/var/log/debug
+	Debugging output from various packages.
+
+/var/log/dmesg
+	Kernel ring buffer. The content of this file is referred to by the dmesg
+	command.
+
+/var/log/gdm/
+	GDM log files. Normally a subset of the last X log file. See /var/log/
+	xdm.log for mode details.
+
+/var/log/kdm.log
+	KDM log file. Normally a subset of the last X log file. See /var/log/
+	xdm.log for more details.
+
+/var/log/messages
+	System logs.
+
+/var/log/pacct
+	Process accounting is the bookkeeping of process activity. The raw data
+	of process activity is maintained here. Three commands can be used to
+	access the contents of this file dump-acct, sa (summary of process
+	accounting) and lastcomm (list the commands executed on the system).
+
+/var/log/utmp
+	Active user sessions. This is a data file and as such it can not be
+	viewed normally. A human-readable form can be created via the dump-utmp
+	command or through the w, who or users commands.
+
+/var/log/wtmp
+	Log of all users who have logged into and out of the system. The last
+	command can be used to access a human readable form of this file. It also
+	lists every connection and run-level change.
+
+/var/log/xdm.log
+	XDM log file. Normally subset of the last X startup log and pretty much
+	useless in light of the details the X logs is able to provide us with.
+	Only consult this file if you have XDM specific issues otherwise just use
+	the X logfile.
+
+/var/log/XFree86.0.log, /var/log/XFree86.?.log
+	X startup logfile. An excellent resource for uncovering problems with X
+	configuration. Log files are numbered according to when they were last
+	used. For example, the last log file would be stored in /var/log/
+	XFree86.0.log, the next /var/log/XFree86.9.log, so on and so forth.
+
+/var/log/syslog
+	The 'system' log file. The contents of this file is managed via the
+	syslogd daemon which more often than not takes care of all log
+	manipulation on most systems.
