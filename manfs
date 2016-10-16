@@ -69,6 +69,9 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # this is where the docu textfiles are stored
 DOCU_PATH=$DIR'/data'
+if [ ! -e "$DOCU_PATH" ]; then
+	DOCU_PATH='/usr/local/share/manfs'
+fi
 
 
 
