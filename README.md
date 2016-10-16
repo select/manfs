@@ -1,6 +1,8 @@
 # manfs
 Print manual texts for your linux file system.
 
+<a href="https://asciinema.org/a/es5x0mrae7flk28niwx2246v4"><img src="https://asciinema.org/a/es5x0mrae7flk28niwx2246v4.png" width="300"/></a>
+
 ## Installation
 
 Clone this repo and add the `manfs` script to your `PATH`.
