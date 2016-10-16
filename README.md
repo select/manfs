@@ -5,7 +5,13 @@ Print manual texts for your linux file system.
 
 ## Installation
 
-Clone this repo and add the `manfs` script to your `PATH`.
+On Debian/Ubuntu download the `.deb` package and install it
+```
+wget https://github.com/select/manfs/raw/master/dist/manfs_1.0-1.deb
+sudo dpkg -i manfs_1.0-1.deb
+```
+
+Or clone this repo and add the `manfs` script to your `PATH`.
 
 ```
 git clone git@github.com:select/manfs.git
@@ -30,7 +36,7 @@ manfs /var
 
 - I would love to add some more documentation for all kinds of folders like `~./ssh`
 - It would be great to have documenation for files like `/boot/vmlinuz-4.4.0-43-generic`. To add this we could match it with e.g. `./data/boot/vmlinuz`
-- Anybody want to help me build a `.deb` package?
+- Anybody want to help me build a better `.deb` package?
 
 Submit a pull request :D
 
