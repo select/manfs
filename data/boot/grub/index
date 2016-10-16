@@ -1,0 +1,20 @@
+/boot/grub
+    This subdirectory contains the GRUB configuration files including boot-up
+    images and sounds. GRUB is the GNU GRand Unified Bootloader, a project
+    which intends to solve all bootup problems once and for all. One of the
+    most interesting features, is that you don't have to install a new
+    partition or kernel, you can change all parameters at boot time via the
+    GRUB Console, since it knows about the filesystems.
+
+/boot/grub/device.map
+    Maps devices in /dev to those used by grub. For example, (/dev/fd0) is
+    represented by /dev/fd0 and (hd0, 4) is referenced by /dev/hda5.
+
+/boot/grub/grub.conf, /boot/grub/menu.lst
+    Grub configuration file.
+
+/boot/grub/messages
+    Grub boot-up welcome message.
+
+/boot/grub/splash.xpm.gz
+    Grub boot-up background image.

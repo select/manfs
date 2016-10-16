@@ -1,0 +1,103 @@
+1.4. /boot
+
+This directory contains everything required for the boot process except for
+configuration files not needed at boot time (the most notable of those being
+those that belong to the GRUB boot-loader) and the map installer. Thus, the /
+boot directory stores data that is used before the kernel begins executing
+user-mode programs. This may include redundant (back-up) master boot records,
+sector/system map files, the kernel and other important boot files and data
+that is not directly edited by hand. Programs necessary to arrange for the
+boot loader to be able to boot a file are placed in /sbin. Configuration
+files for boot loaders are placed in /etc. The system kernel is located in
+either / or /boot (or as under Debian in /boot but is actually a symbolically
+linked at / in accordance with the FSSTND).
+
+/boot/boot.0300
+    Backup master boot record.
+
+/boot/boot.b
+    This is installed as the basic boot sector. In the case of most modern
+    distributions it is actually a symbolic link to one of four files /boot/
+    boot-bmp.b, /boot/boot-menu.b, /boot/boot-text.b, /boot/boot-compat.b
+    which allow a user to change the boot-up schema so that it utilises a
+    splash screen, a simple menu, a text based interface or a minimal boot
+    loader to ensure compatibility respectively. In each case re-installation
+    of lilo is necessary in order to complete the changes. To change the
+    actual 'boot-logo' you can either use utilities such as fblogo or the
+    more refined bootsplash.
+
+/boot/chain.b
+    Used to boot non-Linux operating systems.
+
+/boot/config-kernel-version
+    Installed kernel configuration. This file is most useful when compiling
+    kernels on other systems or device modules. Below is a small sample of
+    what the contents of the file looks like.
+
+            CONFIG_X86=y
+            CONFIG_MICROCODE=m
+            CONFIG_X86_MSR=m
+            CONFIG_MATH_EMULATION=y
+            CONFIG_MTRR=y
+            CONFIG_MODULES=y
+            CONFIG_MODVERSIONS=y
+            CONFIG_SCSI_DEBUG=m
+            CONFIG_I2O=m
+            CONFIG_ARCNET_ETH=y
+            CONFIG_FMV18X=m
+            CONFIG_HPLAN_PLUS=m
+            CONFIG_ETH16I=m
+            CONFIG_NE2000=m
+            CONFIG_HISAX_HFC_PCI=y
+            CONFIG_ISDN_DRV_AVMB1_C4=m
+            CONFIG_USB_RIO500=m
+            CONFIG_QUOTA=y
+            CONFIG_AUTOFS_FS=m
+            CONFIG_ADFS_FS=m
+            CONFIG_AFFS_FS=m
+            CONFIG_HFS_FS=m
+            CONFIG_FAT_FS=y
+            CONFIG_MSDOS_FS=y
+            CONFIG_UMSDOS_FS=m
+            CONFIG_FBCON_VGA=m
+            CONFIG_FONT_8x8=y
+            CONFIG_FONT_8x16=y
+            CONFIG_SOUND=m
+            CONFIG_SOUND_CMPCI=m
+            CONFIG_AEDSP16=m
+
+
+    As you can see, it's rather simplistic. The line begins with the
+    configuration option and whether it's configured as part of the kernel,
+    as a module or not at all. Lines beginning with a # symbol are comments
+    and are not interpreted during processing.
+
+/boot/os2_d.b
+    Used to boot to the 0S/2 operating system.
+
+/boot/map
+    Contains the location of the kernel.
+
+/boot/vmlinuz, /boot/vmlinuz-kernel-version
+    Normally the kernel or symbolic link to the kernel.
+
+/boot/grub
+    This subdirectory contains the GRUB configuration files including boot-up
+    images and sounds. GRUB is the GNU GRand Unified Bootloader, a project
+    which intends to solve all bootup problems once and for all. One of the
+    most interesting features, is that you don't have to install a new
+    partition or kernel, you can change all parameters at boot time via the
+    GRUB Console, since it knows about the filesystems.
+
+/boot/grub/device.map
+    Maps devices in /dev to those used by grub. For example, (/dev/fd0) is
+    represented by /dev/fd0 and (hd0, 4) is referenced by /dev/hda5.
+
+/boot/grub/grub.conf, /boot/grub/menu.lst
+    Grub configuration file.
+
+/boot/grub/messages
+    Grub boot-up welcome message.
+
+/boot/grub/splash.xpm.gz
+    Grub boot-up background image.

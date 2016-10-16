@@ -1,0 +1,104 @@
+1.2. The Root Directory
+
+  To comply with the FSSTND the following directories, or symbolic links to
+directories, are required in /.
+
+
+       /bin       Essential command binaries
+       /boot      Static files of the boot loader
+       /dev       Device files
+       /etc       Host-specific system configuration
+       /lib       Essential shared libraries and kernel modules
+       /media     Mount point for removeable media
+       /mnt       Mount point for mounting a filesystem temporarily
+       /opt       Add-on application software packages
+       /sbin      Essential system binaries
+       /srv       Data for services provided by this system
+       /tmp       Temporary files
+       /usr       Secondary hierarchy
+       /var       Variable data
+
+
+The following directories, or symbolic links to directories, must be in /, if
+the corresponding subsystem is installed:
+
+
+     / -- the root directory
+     /home User home directories (optional)
+     /lib<qual> Alternate format essential shared libraries
+                      (optional)
+     /root Home directory for the root user (optional)
+
+
+  Each directory listed above is described in detail in separate subsections
+further on in this document.
+
+  The reference system will be based upon Debian 3.0r0 (Woody), 2.4.18 kernel
+configured to a Redhat kernel-2.4.18-i686.config file.
+
+
+
+Hardware
+
+
+      + Intel Celeron 766 Processor
+
+      + MSI MS-6309 V.2.0 Mainboard
+
+      + 512MB PQI PC133 SDRAM
+
+      + 16x Lite-On LTD-165H DVD-ROM
+
+      + 40x24x10 Sony CRX175A1 CD-RW
+
+      + NVIDIA RIVA 32MB TNT2 M64
+
+      + D-Link DFE-530TX 10/100 NIC
+
+      + Realtek RTL8029(AS) 10 NIC
+
+      + Lucent Mars2 Linmodem
+
+      + C-Media CMI8738 PCI Audio Device
+
+      + Miro DC-30 VIVO
+
+      + Aopen KF-45A Miditower Case
+
+      + Acer Accufeel Keyboard
+
+      + Genius Netscroll+ Mouse
+
+      + Compaq MV500 Presario Monitor
+
+
+Software
+
+
+      + Windows XP on /dev/hda1
+
+      + FreeBSD 4.2 on /dev/hda2
+
+      + Redhat 8.0 on /dev/hda5
+
+      + Debian 3.0r0 on /dev/hda6
+
+      + Mandrake 9.1 on /dev/hda7
+
+      + Swap partition on /dev/hda8
+
+
+
+  As we all know Linux file system starts with /, the root directory. All
+other directories are 'children' of this directory. The partition which the
+root file system resides on is mounted first during boot and the system will
+not boot if it doesn't find it. On our reference system, the root directory
+contains the following sub-directories:
+
+  bin/ dev/ home/ lost+found/ proc/ sbin/ usr/ cdrom/ opt/ vmlinuz boot/ etc/
+lib/ mnt/ root/ tmp/ var/ dvd/ floppy/ initrd/ /tftpboot
+
+  In days past it was also the home directory of 'root' but now he has been
+given his own directory for reasons that will be explained further on in this
+document.
+

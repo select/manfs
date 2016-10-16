@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+#================================================================
+# HEADER
+#================================================================
+#% SYNOPSIS
+#+    ${SCRIPT_NAME} [-h] [path]
+#%
+#% DESCRIPTION
+#%    Print manual texts about your file system.
+#%    Based on "Linux Filesystem Hierarchy" by Binh Nguyen:
+#%    http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/Linux-Filesystem-Hierarchy.txt
+#%
+#% OPTIONS
+#%    [path]          Print manual for a given path
+#%                    if there is no manual entry a parent
+#%                    manual entry will be suggested.
+#%                    If left empty the default value is the current path.
+#%    -h, --help      Print this help
+#%    -v, --version   Print script information
+#%
+#% EXAMPLES
+#%    cd /bin; ${SCRIPT_NAME}
+#%    ${SCRIPT_NAME} /var
+#%
+#================================================================
+#- IMPLEMENTATION
+#-    version         ${SCRIPT_NAME} (www.webpgr.com) 0.0.1
+#-    author          Falko Krause
+#-    copyright       Copyright (c) http://www.webpgr.com
+#-    license         GNU General Public License
+#-
+#================================================================
+#  HISTORY
+#     2016/10/16 : select : Script creation
+#
+#================================================================
+# END_OF_HEADER
+#================================================================
+#== needed variables ==#
+SCRIPT_HEADSIZE=$(head -200 ${0} |grep -n "^# END_OF_HEADER" | cut -f1 -d:)
+SCRIPT_NAME="$(basename ${0})"
+#== usage functions ==#
+usagefull() { head -${SCRIPT_HEADSIZE:-99} ${0} | grep -e "^#[%+-]" | sed -e "s/^#[%+-]//g" -e "s/\${SCRIPT_NAME}/${SCRIPT_NAME}/g" ; }
+scriptinfo() { head -${SCRIPT_HEADSIZE:-99} ${0} | grep -e "^#-" | sed -e "s/^#-//g" -e "s/\${SCRIPT_NAME}/${SCRIPT_NAME}/g"; }
+# header cui from https://stackoverflow.com/a/29579226/1436151
+
+if [[ $@ == "-h" || $@ == "--help" ]]; then
+	usagefull
+	exit 0
+elif [[ $@ == "-v"  ||  $@ == "--version" ]]; then
+	scriptinfo
+	exit 0
+fi
+
+
+
+# get the path of this script
+# mindlessly copied from https://stackoverflow.com/a/246128/1436151
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+
+
+# this is where the docu textfiles are stored
+DOCU_PATH=$DIR'/data'
+
+
+
+# if no input arguments were passed use current path as requested location
+if [ $# -eq 0 ]; then
+	REQUEST_PATH=`realpath .`
+else
+	REQUEST_PATH=`realpath $@`
+fi
+
+
+
+# initial manual path
+MANPAGE_PATH=$DOCU_PATH$REQUEST_PATH
+if [ -e "$MANPAGE_PATH" ]; then
+	less $MANPAGE_PATH'/index'
+else
+	ALT_PATH=`dirname $MANPAGE_PATH`
+	while [ ! -e "$ALT_PATH" ]; do
+		ALT_PATH=`dirname $ALT_PATH`
+	done
+	echo -e '... could not find documentation for '$REQUEST_PATH'\n'
+	ALT_PATH_CLEAN=${ALT_PATH#$DOCU_PATH}
+	if [ ! $ALT_PATH_CLEAN ]; then
+		ALT_PATH_CLEAN='/'
+	fi
+	read -p "Do you wish to see the manpage for "$ALT_PATH_CLEAN" ? [Y/n] " yn
+	case $yn in
+			[Yy]* ) less $ALT_PATH'/index';;
+			[Nn]* ) exit 0;;
+			* ) less $ALT_PATH'/index';;
+	esac
+fi

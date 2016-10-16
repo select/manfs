@@ -1,0 +1,196 @@
+1.12. /mnt
+
+This is a generic mount point under which you mount your filesystems or
+devices. Mounting is the process by which you make a filesystem available to
+the system. After mounting your files will be accessible under the
+mount-point. This directory usually contains mount points or sub-directories
+where you mount your floppy and your CD. You can also create additional
+mount-points here if you wish. Standard mount points would include /mnt/cdrom
+and /mnt/floppy. There is no limitation to creating a mount-point anywhere on
+your system but by convention and for sheer practicality do not litter your
+file system with mount-points. It should be noted that some distributions
+like Debian allocate /floppy and /cdrom as mount points while Redhat and
+Mandrake puts them in /mnt/floppy and /mnt/cdrom respectively.
+
+  However, it should be noted that as of FSSTND version 2.3 the purpose of
+this directory has changed.
+
+
+  This directory is provided so that the system administrator may temporarily
+  mount a filesystem as needed. The content of this directory is a local issue
+  and should not affect the manner in which any program is run.
+
+  This directory must not be used by installation programs: a suitable temporary
+  directory not in use by the system must be used instead.
+-----------------------------------------------------------------------------
+
+1.12.1. Mounting and unmounting
+
+Before one can use a filesystem, it has to be mounted. The operating system
+then does various bookkeeping things to make sure that everything works.
+Since all files in UNIX are in a single directory tree, the mount operation
+will make it look like the contents of the new filesystem are the contents of
+an existing subdirectory in some already mounted filesystem.
+
+The mounts could be done as in the following example:
+
+  $ mount /dev/hda2 /home
+  $ mount /dev/hda3 /usr
+  $
+
+The mount command takes two arguments. The first one is the device file
+corresponding to the disk or partition containing the filesystem. The second
+one is the directory below which it will be mounted. After these commands the
+contents of the two filesystems look just like the contents of the /home and
+/usr directories, respectively. One would then say that ``/dev/hda2 is
+mounted on /home'', and similarly for /usr. To look at either filesystem, one
+would look at the contents of the directory on which it has been mounted,
+just as if it were any other directory. Note the difference between the
+device file, /dev/hda2, and the mounted-on directory, /home. The device file
+gives access to the raw contents of the disk, the mounted-on directory gives
+access to the files on the disk. The mounted-on directory is called the mount
+point.
+
+Linux supports many filesystem types. mount tries to guess the type of the
+filesystem. You can also use the -t fstype option to specify the type
+directly; this is sometimes necessary, since the heuristics mount uses do not
+always work. For example, to mount an MS-DOS floppy, you could use the
+following command:
+  $ mount -t msdos /dev/fd0 /floppy
+   $
+
+
+The mounted-on directory need not be empty, although it must exist. Any files
+in it, however, will be inaccessible by name while the filesystem is mounted.
+(Any files that have already been opened will still be accessible. Files that
+have hard links from other directories can be accessed using those names.)
+There is no harm done with this, and it can even be useful. For instance,
+some people like to have /tmp and /var/tmp synonymous, and make /tmp be a
+symbolic link to /var/tmp. When the system is booted, before the /var
+filesystem is mounted, a /var/tmp directory residing on the root filesystem
+is used instead. When /var is mounted, it will make the /var/tmp directory on
+the root filesystem inaccessible. If /var/tmp didn't exist on the root
+filesystem, it would be impossible to use temporary files before mounting /
+var.
+
+If you don't intend to write anything to the filesystem, use the -r switch
+for mount to do a read-only mount. This will make the kernel stop any
+attempts at writing to the filesystem, and will also stop the kernel from
+updating file access times in the inodes. Read-only mounts are necessary for
+unwritable media, e.g., CD-ROMs.
+
+The alert reader has already noticed a slight logistical problem. How is the
+first filesystem (called the root filesystem, because it contains the root
+directory) mounted, since it obviously can't be mounted on another
+filesystem? Well, the answer is that it is done by magic.
+
+For more information, see the kernel source or the Kernel Hackers' Guide.
+
+The root filesystem is magically mounted at boot time, and one can rely on it
+to always be mounted. If the root filesystem can't be mounted, the system
+does not boot. The name of the filesystem that is magically mounted as root
+is either compiled into the kernel, or set using LILO or rdev.
+
+The root filesystem is usually first mounted read-only. The startup scripts
+will then run fsck to verify its validity, and if there are no problems, they
+will re-mount it so that writes will also be allowed. fsck must not be run on
+a mounted filesystem, since any changes to the filesystem while fsck is
+running will cause trouble. Since the root filesystem is mounted read-only
+while it is being checked, fsck can fix any problems without worry, since the
+remount operation will flush any metadata that the filesystem keeps in
+memory.
+
+On many systems there are other filesystems that should also be mounted
+automatically at boot time. These are specified in the /etc/fstab file; see
+the fstab man page for details on the format. The details of exactly when the
+extra filesystems are mounted depend on many factors, and can be configured
+by each administrator if need be.
+
+When a filesystem no longer needs to be mounted, it can be unmounted with
+umount.
+
+It should of course be unmount, but the n mysteriously disappeared in the
+70s, and hasn't been seen since. Please return it to Bell Labs, NJ, if you
+find it.
+
+umount takes one argument: either the device file or the mount point. For
+example, to unmount the directories of the previous example, one could use
+the commands
+  $ umount /dev/hda2
+  $ umount /usr
+  $
+
+
+See the man page for further instructions on how to use the command. It is
+imperative that you always unmount a mounted floppy. Don't just pop the
+floppy out of the drive! Because of disk caching, the data is not necessarily
+written to the floppy until you unmount it, so removing the floppy from the
+drive too early might cause the contents to become garbled. If you only read
+from the floppy, this is not very likely, but if you write, even
+accidentally, the result may be catastrophic.
+
+Mounting and unmounting requires super user privileges, i.e., only root can
+do it. The reason for this is that if any user can mount a floppy on any
+directory, then it is rather easy to create a floppy with, say, a Trojan
+horse disguised as /bin/sh, or any other often used program. However, it is
+often necessary to allow users to use floppies, and there are several ways to
+do this:
+
+  * Give the users the root password. This is obviously bad security, but is
+    the easiest solution. It works well if there is no need for security
+    anyway, which is the case on many non-networked, personal systems.
+
+  * Use a program such as sudo to allow users to use mount. This is still bad
+    security, but doesn't directly give super user privileges to everyone.
+    [1]
+
+  * Make the users use mtools, a package for manipulating MS-DOS filesystems,
+    without mounting them. This works well if MS-DOS floppies are all that is
+    needed, but is rather awkward otherwise.
+
+  * List the floppy devices and their allowable mount points together with
+    the suitable options in /etc/fstab.
+
+
+The last alternative can be implemented by adding a line like the following
+to the /etc/fstab file:
+
+  /dev/fd0 /floppy
+  msdos user,noauto 0 0
+
+
+The columns are: device file to mount, directory to mount on, filesystem
+type, options, backup frequency (used by dump), and fsck pass number (to
+specify the order in which filesystems should be checked upon boot; 0 means
+no check).
+
+The noauto option stops this mount to be done automatically when the system
+is started (i.e., it stops mount -a from mounting it). The user option allows
+any user to mount the filesystem, and, because of security reasons, disallows
+execution of programs (normal or setuid) and interpretation of device files
+from the mounted filesystem. After this, any user can mount a floppy with an
+msdos filesystem with the following command:
+
+
+
+  $ mount /floppy
+  $
+
+
+The floppy can (and needs to, of course) be unmounted with the corresponding
+umount command.
+
+If you want to provide access to several types of floppies, you need to give
+several mount points. The settings can be different for each mount point. For
+example, to give access to both MS-DOS and ext2 floppies, you could have the
+following to lines in /etc/fstab:
+
+  /dev/fd0 /dosfloppy msdos user,noauto 0 0 /dev/fd0
+  /ext2floppy ext2 user,noauto 0 0
+
+
+For MS-DOS filesystems (not just floppies), you probably want to restrict
+access to it by using the uid, gid, and umask filesystem options, described
+in detail on the mount manual page. If you aren't careful, mounting an MS-DOS
+filesystem gives everyone at least read access to the files in it, which is
+not a good idea.

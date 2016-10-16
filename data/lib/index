@@ -1,0 +1,92 @@
+1.9. /lib
+
+ The /lib directory contains kernel modules and those shared library images
+(the C programming code library) needed to boot the system and run the
+commands in the root filesystem, ie. by binaries in /bin and /sbin. Libraries
+are readily identifiable through their filename extension of *.so. Windows
+equivalent to a shared library would be a DLL (dynamically linked library)
+file. They are essential for basic system functionality. Kernel modules
+(drivers) are in the subdirectory /lib/modules/'kernel-version'. To ensure
+proper module compilation you should ensure that /lib/modules/
+'kernel-version'/kernel/build points to /usr/src/'kernel-version' or ensure
+that the Makefile knows where the kernel source itself are located.
+
+
+
+/lib/'machine-architecture'
+    Contains platform/architecture dependent libraries.
+
+/lib/iptables
+    iptables shared library files.
+
+/lib/kbd
+    Contains various keymaps.
+
+/lib/modules/'kernel-version'
+    The home of all the kernel modules. The organisation of files here is
+    reasonably clear so no requires no elaboration.
+
+/lib/modules/'kernel-version'/isapnpmap.dep
+      has details on ISA based cards, the modules that they require and
+    various other attributes.
+
+/lib/modules/'kernel-version'/modules.dep
+      lists all modules dependencies. This file can be updated using the
+    depmod command.
+
+/lib/modules/'kernel-version'/pcimap
+    is the PCI equivalent of the /lib/modules/'kernel-version'/isapnpmap.dep
+    file.
+
+/lib/modules/'kernel-version'/usbmap
+    is the USB equivalent of the /lib/modules/'kernel-version'/isapnpmap.dep
+    file.
+
+/lib/oss
+      All OSS (Open Sound System) files are installed here by default.
+
+/lib/security
+    PAM library files.
+
+
+
+The FSSTND states that the /lib directory contains those shared library
+images needed to boot the system and run the commands in the root filesystem,
+ie. by binaries in /bin and /sbin.
+
+Shared libraries that are only necessary for binaries in /usr (such as any
+X Window binaries) must not be in /lib. Only the shared libraries required
+to run binaries in /bin and /sbin may be here. In particular, the library
+libm.so.* may also be placed in /usr/lib if it is not required by anything
+in /bin or /sbin.
+
+At least one of each of the following filename patterns are required (they
+may be files, or symbolic links):
+
+libc.so.* The dynamically-linked C library (optional)
+ld*       The execution time linker/loader (optional)
+
+If a C preprocessor is installed, /lib/cpp must be a reference to it, for
+historical reasons. The usual placement of this binary is /usr/bin/cpp.
+
+The following directories, or symbolic links to directories, must be in
+/lib, if the corresponding subsystem is installed:
+
+modules   Loadable kernel modules (optional)
+
+/lib<qual> : Alternate format essential shared libraries (optional)
+
+There may be one or more variants of the /lib directory on systems which
+support more than one binary format requiring separate libraries.
+
+This is commonly used for 64-bit or 32-bit support on systems which support
+multiple binary formats, but require libraries of the same name. In this
+case, /lib32 and /lib64 might be the library directories, and /lib a symlink
+to one of them.
+
+If one or more of these directories exist, the requirements for their contents
+are the same as the normal /lib directory, except that /lib<qual>/cpp is
+not required.
+
+/lib<qual>/cpp is still permitted: this allows the case where /lib and
+/lib<qual> are the same (one is a symbolic link to the other).
