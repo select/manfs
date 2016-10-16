@@ -57,4 +57,5 @@ The idea originates from using the ipython help `str ?` and reading an article a
 
 ## License
 
-TODO: Write license
+GPL-3.0
+
